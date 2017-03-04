@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>个人资料</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!-- <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet"> -->
+    
+    <link href="../frontpages/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../frontpages/css/font-awesome.css" rel="stylesheet"/>
+    <link href="../frontpages/css/animate.css" rel="stylesheet"/>
+    <link href="../frontpages/css/style.css" rel="stylesheet"/>
+
+    <script>  
+  function locking(){  
+   document.all.ly.style.display="inline-block";  
+   document.all.ly.style.width=document.body.clientWidth;  
+   document.all.ly.style.height=document.body.clientHeight;  
+   document.all.Layer2.style.display='inline-block'; 
+
+   }  
+  function Lock_CheckForm(theForm){  
+   document.all.ly.style.display='none';document.all.Layer2.style.display='none';
+  return false;  
+   }  
+    </script>
+
+</head>
+
+       <style type="text/css">
+
+.STYLE1 {font-size: 12px}
+a:link {
+color: #FFFFFF;
+text-decoration: none;
+}
+a:visited {
+text-decoration: none;
+}
+a:hover {
+text-decoration: none;
+}
+a:active {
+text-decoration: none;
+}
+.form{
+    display: block;
+    padding: 5px;
+}
+#form1{
+    padding-left: 75px;
+  
+}
+
+</style>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row animated fadeInRight">
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>个人资料</h5>
+                    </div>
+                    <div>
+                        <div class="ibox-content no-padding border-left-right" id="tximg">
+                            <img alt="image" class="img-responsive" src="img/a1.jpg" style="border-radius:50%; ">
+                        </div>
+                        <div class="ibox-content profile-content">
+
+                        
+                            <h5>关于我</h5>
+                            <p>姓名:</p>
+                            
+                            <p>QQ:</p>
+                            <p>电话:</p>
+                           
+
+                            <div class="row m-t-lg">
+                               <!--  <div class="col-sm-4">
+                                    <h5><strong>169</strong><span>教学任务</span></h5>
+                                </div> -->
+                              
+                            <div class="user-button">
+                                <div class="row">
+                                    <!-- <div class="col-sm-6">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 制定教学任务</button>
+                                    </div> -->
+                                    <div class="col-sm-6">
+                                        <button type="button" onClick="locking()" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> 编辑</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              <div id="ly" style="position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
+         z-index: 2; left: 0px; display: none;">
+    </div>
+
+             <div id="Layer2" align="center" style="position: absolute; z-index: 3; left: expression((document.body.offsetWidth-540)/2); top: expression((document.body.offsetHeight-170)/10);
+         background-color: #fff; display: none;" >
+        <table width="540" height="200" border="0" cellpadding="0" cellspacing="0" style="border: 0    solid    #e7e3e7;
+             border-collapse: collapse ;" >
+            <tr>
+                <td style="background-color: #73A2d6; color: #fff; padding-left: 4px; padding-top: 2px;
+                     font-weight: bold; font-size: 12px;" height="10" valign="middle">
+                     <div align="right"><a href=JavaScript:; class="STYLE1" onclick="Lock_CheckForm(this);">[关闭]</a>     </div></td>
+            </tr>
+            <tr>
+                <td height="150" align="center">
+                    <form>
+                        <div class="form" id="form1">头像:<input type="file"></div>
+                        
+                        <div class="form">姓名:<input type="text" name=""></div>
+                        
+                        <div class="form">QQ&nbsp;:<input type="text" name=""></div>
+                        
+                        <div class="form">电话:<input type="text" name=""></div>
+                        
+                        <div class="form"><input type="submit" value="提交" ></div>  
+                    </form>
+                </td>
+           
+              
+            </tr>
+        </table>
+    </div>
+
+            
+
+            </div>
+        </div>
+    </div> 
+
+   
+
+   
+    <!-- <script src="js/demo/peity-demo.js"></script> -->
+
+     <!-- 全局js -->
+    <script src="../frontpages/js/jquery.min.js"></script>
+    <script src="../frontpages/js/bootstrap.min.js"></script>
+
+
+
+    <!-- 自定义js -->
+    <script src="../frontpages/js/content.js"></script>
+
+
+    <!-- Peity -->
+    <script src="../frontpages/js/jquery.peity.min.js"></script>
+    
+
+</body>
+
+</html>

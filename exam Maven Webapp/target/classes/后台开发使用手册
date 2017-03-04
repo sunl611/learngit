@@ -1,0 +1,114 @@
+本次开发使用的技术是基于servlet+jdbc封装的一个微型的框架，框架只是简单的能测试通过，暂时没有出现bug。
+但是在性能上线层并发上可能就不会那么的好。
+
+对于controller层的api使用：
+controller层就是我们以前经常接触的servlet，但是我在controller层里面做了很多封装，以便于快捷开发。 
+首先先回忆一下原始的servlet的是怎样被tomcat容器在运行的时候找到的。从最表面来讲，就是在我们创建一个servlet的时候，在web.xml里
+面去配置 这个servlet的访问路径在地址栏通过：“主机名+/+项目名+servlet访问路径”就可以找到这个servlet，对于servlet的生命周期，在
+生命周期中的每一 步都对应域servlet中一个方法。所以当我们是一个GET请求的时候tomcat容器在找到这个servlet的时候就会区调用它的doGet
+方法，POST请求则调用doPost 方法，但是其实这两个方法都是一个叫service方法的扩展，最基本的servlet是基于service方法去处理所有的请
+求的，所以如果一个servlet中没有doGet或者 doPost的时候就会去调用它的service方法。基于这个原理我们对controller层进行封装。
+
+在讲方法的使用之前再来看看封装以后，一个servlet是怎样执行正确的方法来处理每一个请求的。我们的每一个Controller层的类都有一个共同的基类 
+AbstractServlet，这个类是继承域HttpServlet的类，所以我们的每一个Controller层的类也间接的继承类HttpServlet，所以拥有一个servlet 
+的所有属性，我们也可以给他配置访问路径，其次我们的我们在AbstractServlet里面重写了一个service方法，tomcat容器通过访问路径找到
+controller 层的某一个servlet的时候，他就会区尝试调用它的doGet或者doPost当这两个都没有的时候，就会区尝试调用它的service，
+但是service这个方法没有 被定义在这个类本身，而是定义在了它的基类AbstractServlet中，所以他就会去执行AbstractServlet中的service方法，
+这样就不难直到，这个service 中的就是我们封装的核心代码，
+它主要实现了：
+1.将请求分派到controller层某个具体的方法中区处理，
+2.定义了请求和Controller层方法的匹配规则， 
+3.对异常就行拦截。这是主要的三个功能。 
+在这里面我们需要去详细了解请求如何是如何域controller层方法进行匹配的。 
+在controller开发方法的时候我们在每一个方法上面都需要使用一个注解。
+RequestMapping，在RequestMapping中需要定义两个属性：value和method value就是Service方法在匹配的时候需要匹配的值，
+匹配成功则调用这个方法来处理请求，method的是指定这个方法可以被哪一种方法访问，这个方法在定 义的时候都需要被定义不然Service层的匹配
+也不会成功。
+eg： 
+@WebServlet(value={"/example"}) public class ExampleController extends ControllerExtend {
+	 /** * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) */
+	private static final long serialVersionUID = 1L;
+
+	@RequestMapping(value="mapping",method="GET")
+	public void mapping(){
+		out.print("success!");
+	}
+}
+地址栏：http://localhost:8080/exam/example?to=mapping ，
+http://localhost:8080/exam/example这一部分就是用于用于给tomcat容器找到servlet用的，“example”是WebServlet中的value属性值，
+?to=mapping使用域给Service方法找到某个具体的方法去处理这个请求，mapping是RequestMapping的value属性值，to这个参数名是固定的不能变。
+
+首先是对常用的servlet层常用对象的内置化，即实现向jsp一样的效果，直接可以再servlet层的每一个方法中直接去使用这些基本对象（request，
+response，session，config，context，out）。接下来就看看我们针对这几个的一些常用方法的封装吧。
+
+1.request.getParameter的一系列封装。
+getInt（String name）：返回某个参数的，Integer值如果这个值不能被转型为Integer将会抛出异常，如果不存在这个参数将会返回null
+getIntDefault(String name, Integer defaultInteger)：返回某个参数的Integer值如果这个值不能被转型为Integer将会抛出异常，如果不存在这个参数将会返回defaultInteger
+
+getString(String name) 返回某个参数的，String 值如果这个值不能被转型为String将会抛出异常，如果不存在这个参数将会返回null
+getStringDefault(String name, String defaultString)：返回某个参数的String值如果这个值不能被转型为String将会抛出异常，如果不存在这个参数将会返回defaultString
+
+getDouble和getDoubleDefault和以上是一样的原理
+
+getBean(Class<T> clz) 将一系列的参数封装到一个javabean中并且返回这个javabean对象，
+需要传入一个需要返回的javabean的Class对象，而且javabean中的属性名必须和参数名一 致才会被写入。
+
+
+
+
+文件上传：文件上传使用了apache的上传组件封装，细节不讲。我们在使用的时候需要注意几步
+1.在web.xml中去定义你的文件的存储目录和文件的临时存储路径，这个在环境搭建的时候就需要去做，不然项目将无法运行。
+<context-param>
+    <param-name>upload</param-name>
+    <param-value>/WEB-INF/upload</param-value>
+</context-param>
+ <context-param>
+    <param-name>tmp-upload</param-name>
+    <param-value>/WEB-INF/tmp-upload</param-value>
+</context-param>
+参数名是固定的但是值你可以自己指定
+文件上传相关的API
+getFilepath（String name）获取指定名的file只是这个name指定的时候需要注意，因为apache的上传组件没有办法获取到file=type时候的name值所以
+我在封装的时候就只能换一种命名方式了：以file为前缀，加上type=file的下标 即file0，file1，file2
+
+
+request.setAttribute(String name,String value):封装为了setAttribute(String name,String value)，可以直接调用，不用在通过request
+request.getAttribute(String name):封装为getAttribute(String name)
+
+json相关的APi
+putJson（String name，T t）将某个对象或者基本类型传到JsonObject中并且为他指定name，可以反复调用
+sendJson（）：将所有需要传递的json数据写到前台
+sendJson（PageBean pageBean）：将封装好的分页对象传递给前台
+
+
+其他api
+protected abstract void handleException(Exception e);这是一个抽象的方法，所以需要子类去实现它，
+我们在ControllerExpand去实现它，使用来拦截Controller层抛出的ServletException或者IoException的
+
+to500(String message,String path500)：转发到500页面的，path500，是500页面的页面地址，message是提示信息
+
+sendRedirect(String controller,String method)
+sendRedirect(String location)
+
+requestDispatcher(String path)
+requestDispatcher(String controller,String method)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

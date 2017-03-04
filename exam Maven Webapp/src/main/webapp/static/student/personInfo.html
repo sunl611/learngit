@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>个人信息</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="http://localhost:8080/exam/static/frontpages/css/common.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost:8080/exam/static/frontpages/css/personInfo.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost:8080/exam/static/common/css/bootstrap.css">
+	<style type="text/css">
+		#header-content {
+			width: 79%;
+		}
+	</style>
+</head>
+<body>
+<div id="header">
+	<div id="header-content">
+		<div id="logo"><img src="http://localhost:8080/exam/static/frontpages/images/logo.png"></div>
+		<div id="sign">
+		    <div id="leaf"></div>
+			<a href="##" id="login">登录</a>
+		</div>
+	</div>
+</div>
+<div id="main">
+	<div id="content">
+	    <p id="content-header">个人信息</p>
+		<div class="left">
+			<img src="http://localhost:8080/exam/static/frontpages/images/background.png" id="user-head">
+			<button type="button" class="btn btn-default" id="btn">修改个人资料</button>
+			<div id="info">
+				<span>姓名: </span><span></span><br>
+				<span>联系方式: </span><span></span><br>
+				<span>座右铭: </span><span></span>
+			</div>
+			<div class="modal fade" id="demoModal" data-backdrop="static">
+			   <div class="modal-dialog" style="width: 800px;">
+			       <div class="modal-content">
+			           <div class="modal-header">
+			               <button type="button" class="close" data-dismiss="modal"  >&times;</button>				           	
+			               <h4 class="modal-title" id="demoModalLabel">个人资料修改</h4>
+			           </div>
+			           <div class="modal-body" style="height: 420px;" id="changePersonInfo">
+			           		<form  method="post" action="testing.html" >
+						        <label for="img">修 改 头 像：</label> <img id="changeimg" src="" /><input type="file" id="pic" onchange="up_pic();"/><input type="hidden" id="path" name="user_photoPath" id="photo"><input type="hidden" id="path" name="user_photoPath" id="photo"><br>
+						        <label for="changename">修 改 用 户 名：</label><input name="user_name" id="changename"  type="text" value="" placeholder="名字不超过六个字符"/><br>
+						        <label for="changestar">修改联系方式：</label><input name="user_contact" id="changecontact"  type="text" value="" /><br>
+						        <label for="changetalk">修 改 座 右 铭：</label><textarea id="changetalk" name="user_intro" name="changetalk" placeholder="个性签名不超过二十个字符"></textarea><br>
+						        <label for="changepsw">修改个人密码：</label><input type="password" name="user_psw" id="changepsw"><br/>
+						        <input type="submit" id="submit" name="submit" onclick="return check(this.form);" style="display:none;">
+						    </form>
+			           </div><!-- /.modal-body -->
+			           <div class="modal-footer">
+			               <button type="button" class="btn btn-default" data-dismiss="modal" id="confirm" onclick="submitTo()">确认修改</button>
+			               <button type="button" class="btn btn-default" data-dismiss="modal">取消修改</button>
+			           </div>
+			       </div><!-- /.modal-content -->
+			   </div><!-- /.modal -->
+			</div>
+		</div>
+		<div class="line"></div>
+		<div class="right">
+			<div class="book"></div>
+			<span class="student-name">小明</span>
+			<span>同学，以下是你近期测试成绩</span>
+			<table border="0" cellspacing="0">
+				<tr><td>章</td><td>册</td><td>测试时间</td><td>成绩</td></tr>
+				<tr><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td></tr>
+				<tr><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td></tr>
+				<tr><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td></tr>
+				<tr><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td></tr>
+				<tr><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td><td><a href="">1</a></td></tr>
+			</table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function submitTo(){
+		$("#submit").click();
+	}
+
+	function check(form) {
+	    if (form.user_name.value.length > 6) {
+	        alert('名字字符数不超过六个！');
+	        return false;
+	    }else if(form.user_name.value.length == 0){
+	    	alert('请输入修改的姓名');
+	    	return false;
+	    }
+
+	    var phone = document.getElementById('changecontact').value;
+	    if(!(/^1[34578]\d{9}$/.test(phone))){ 
+	        alert("手机号码有误，请重填");  
+	        return false; 
+	    } 
+
+	    if (form.user_intro.value.length>20) {
+	        alert('座右铭不超过二十个！');
+	        return false;
+	    }else if(form.user_intro.value.length == 0){
+	    	alert('请输入修改的座右铭');
+	    	return false;
+	    }
+	}
+
+	function up_pic() {
+	    var fd = new FormData();
+	    var pic = document.getElementsByTagName('input')[2].files[0];
+	    fd.append('pic', pic);
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('POST', "/uoload", true);
+	    xhr.send(fd);
+	    xhr.onreadystatechange = function () {
+	        if (4 == xhr.readyState && 200 == xhr.status) {
+	            var data = xhr.responseText;
+	            var dataobj = eval("(" + data + ")");
+	            document.getElementById('path').value=dataobj.path;
+	            document.getElementById('changeimg').src=dataobj.path;
+	            alert(dataobj.message);
+	        }
+	    }
+	}
+</script>
+<script type="text/javascript" src="http://localhost:8080/exam/static/frontpages/js/personInfo.js"></script>
+</body>
+</html>
