@@ -1,0 +1,122 @@
+
+  .board{
+  	width:80%;
+  	height:230px ;/*响应式*/
+  	margin: auto;
+  	position:relative;
+  	top: 250px;/*响应式*/
+  	text-align: center;
+  }
+  @media screen and (min-width: 1380px){
+	.board{
+		width: 80%;
+		height:260px;
+		margin: auto;
+  	position: relative;
+  	top: 300px;/*响应式*/
+  	text-align: center;
+	}
+}
+	@media screen and (min-width: 1920px){
+	.board{
+		width: 80%;
+		height:300px;
+		margin: auto;
+  	position:relative;
+  	top:320px;/*响应式*/
+  	text-align: center;
+	}
+}
+  .board_title a{
+  	display: inline-block;
+  	width: 160px;
+  	height: 50px;
+  	line-height: 30px;
+  	font-size: 14px;
+  	background-image: url(../images/board.gif);
+  }
+  #wrapper{position: relative;margin:20px auto;width: 800px;height: 150px;}
+  #banner{position:relative;width: 800px;height: 150px;overflow: hidden; }
+  .List{position:relative;width:4000px;height:80px;z-index: 10;overflow: hidden;}
+  .List li{float:left;display: inline; width: 800px;height: 80px;}
+  .List li a{
+  	display: inline-block;
+  	width: 800px;
+  	height: 80px;
+  }
+  .bg{position: absolute;bottom:20px;left:365px;width:50px;height: 50px;z-index:20;background-image: url(../images/xiegang.gif);}
+  .indexList{position: absolute;right: 375px;bottom: 0;z-index: 30;}
+  .indexList li{float: left;margin-right: 5px;padding: 2px 2px;border: 1px solid black;background:white;cursor: pointer;}
+  .indexList .indexOn{background: black;font-weight: bold;color: white;}
+  
+
+
+.menu{
+	width:80%;
+	height: 150px;/*响应式*/
+	margin: auto;
+	position: relative;
+	top: 100px;   /*响应式*/
+	text-align: center;
+}
+.menu a{
+	display: inline-block;
+	width: 170px;/*响应式*/
+	height: 150px;/*响应式*/
+}
+@media screen and (min-width: 1380px){
+	.menu{
+		width:80%;
+		height: 170px;/*响应式*/
+		margin: auto;
+		position: relative;
+		top: 120px;   /*响应式*/
+		text-align: center;
+	}
+	.menu a{
+		width: 230px;/*响应式*/
+		display: inline-block;
+		height: 220px;/*响应式*/
+	}
+}
+	@media screen and (min-width: 1920px){
+	.menu{
+		width:80%;
+		margin: auto;
+		position: relative;
+		height: 200px;/*响应式*/
+		top: 130px;   /*响应式*/
+		text-align: center;
+	}
+	.menu a{
+		display: inline-block;
+		height: 250px;/*响应式*/
+		width: 260px;/*响应式*/
+	}
+}
+#chat,#test{
+	margin-right:160px;响应式
+}
+@media only screen and (min-width: 1920px) {
+	#test,#chat{
+		margin-right: 230px;
+	}
+}
+#chat{
+	background-image: url(../images/liuyan.png);
+}
+#chat:hover{
+	background-image: url(../images/liuyan2.png);
+}
+#test{
+	background-image: url(../images/test11.png);
+}
+#test:hover{
+	background-image: url(../images/test2.png);
+}
+#information{
+	background-image: url(../images/infor1.png);
+}
+#information:hover{
+	background-image: url(../images/infor2.png);
+}

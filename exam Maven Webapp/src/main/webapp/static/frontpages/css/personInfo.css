@@ -1,0 +1,130 @@
+#main {
+	width: 100%;
+	min-height: 840px;
+}
+#content {
+	width: 88%;
+	margin: 60px auto 0;
+	background-color: #FFF6ED;
+}
+#content-header {
+	height: 59px;
+	line-height: 64px;
+	text-align: center;
+	font-size: 22px;
+	background-color: #B8AC7A;
+}
+#content .left {
+	display: inline-block;
+	width: 46%;
+	vertical-align: top;
+}
+#content #user-head {
+	width: 160px;
+	height: 160px;
+	margin-top: 75px;
+	margin-left: 42%;
+	border: 2px solid rgb(169,159,120);
+	border-radius: 50%;
+	padding: 14px;
+}
+#changeimg{
+	width: 160px;
+	height: 160px;
+	border: 2px solid rgb(169,159,120);
+	border-radius: 50%;
+	padding: 14px;
+}
+#content .left a {
+	color: black;
+}
+#content .left a:hover {
+	color: rgb(169,159,120);
+}
+#content #info {
+	margin-bottom: 39px;
+	margin-left: 60px;
+}
+#changePersonInfo #changetalk {
+	resize: none;
+}
+#changePersonInfo label {
+	display: inline-block;
+	margin-bottom: 3px;
+	font-size: 18px;
+}
+#changePersonInfo input {
+	margin-bottom:16px;
+	height: 26px;
+	padding-left: 3px;
+}
+#content #info span {
+	display: inline-block;
+	margin-top: 50px;
+	font-size: 1.5em;
+}
+#content #info>input[type="text"] {
+	margin-left: 2px;
+	width: 78%;
+	height: 34px;
+	padding: 2px;
+	border: 1px solid rgb(169,159,120);
+}
+#btn {
+	margin-top: 200px;
+	margin-left: 30px;
+}
+#content .line {
+	display: inline-block;
+	width: 14px;
+	height: 423px;
+	margin-top: 80px;
+	margin-left:74px;
+	background-image: url(../images/line.png);
+}
+#content .right {
+	display: inline-block;
+	width: 42%;
+	margin-left: 52px;
+	margin-top: 122px;
+	vertical-align: top;
+}
+#content .right .book {
+	width: 85px;
+	height: 60px;
+	margin-left: 231px;
+	background-image: url(../images/book.png);
+}
+#content .right .student-name {
+	margin-left: 119px;
+}
+#content .right span {
+	display: inline-block;
+	margin-top: 30px;
+	font-size: 20px;
+}
+#content .right table {
+	margin-top: 53px;
+	margin-bottom: 53px;
+	margin-left: 40px;
+	border-right: 2px solid rgb(169,159,120);
+	border-bottom: 2px solid rgb(169,159,120);
+}
+#content .right table td {
+	width: 117px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	border-left:2px solid rgb(169,159,120);
+	border-top: 2px solid rgb(169,159,120);
+}
+#content .right table tr {
+	cursor: pointer;
+}
+#content .right table tr a {
+	text-decoration: none;
+	color: black;
+}
+#content .right table tr a:hover {
+	color: orange;
+}

@@ -1,0 +1,111 @@
+后台包架构说明：
+在src/main/java下
+	cn.edu.nenu.clzc.commons.constant：存放系统中用到的常量。
+		ERRORConstant.java：存放错误页的跳转页面相关的一些信息
+		FilterConstant.java：存放过滤器里面用到的一些静态常量
+		RequestConstant.java：存放每一个action需要的请求地址
+		ViewUriConstant.java：存放需要跳转到每一个jsp页面的地址
+		
+	cn.edu.nenu.clzc.commons.core：存放系统中封装的核心包，开发的时候不需要你们改如果 运行的时候测试这部分有错的话，反馈给我我来修正。
+	
+	cn.edu.nenu.clzc.commons.core.annotation：存放系统中用到的自定义的注解
+	
+	cn.edu.nenu.clzc.commons.entites.vo：存放视图层对象VO（ViewObject），即实体层类的扩展类，这里面的类一定是继承了实体层的某一个类的。
+	
+	cn.edu.nenu.clzc.commons.enumeration：存放系统中用到的枚举
+		ControllerExceptionEnum.java：存放Controller层中异常枚举信息
+		DaoExceptionEnum.java：存放Dao层的异常枚举信息
+		ServiceExceptionEnum.java：存放service层异常的枚举信息
+		
+	cn.edu.nenu.clzc.commons.exception：存放系统中自定义的异常类
+	
+	cn.edu.nenu.clzc.commons.extend：存放系统中用于Service或者Controller扩展的几个类
+		ControllerExtend.java：Controller层扩展类，在这里将service层的对象定义。
+		ServiceExtend.java：service层扩展类，在这里将要用到的Dao层对象定义
+		
+	cn.edu.nenu.clzc.commons.filter：存放系统中的过滤器
+	
+	cn.edu.nenu.clzc.commons.utils：存放系统中的工具类
+		Assert.java：系统中常用的工具类，封装了一些工具方法，详细的方法可以参考源码。
+		BeanToJson.java：封装了将普通对象转化为json的几个方法。
+		PageBean.java：用于分页的时候格式化json数据输出的对象
+		
+	cn.edu.nenu.clzc.controller：存放系统中的控制层类
+	
+	cn.edu.nenu.clzc.dao：存放系统中dao层类
+	
+	cn.edu.nenu.clzc.service：存放系统中的service类
+在/src/main/resources下
+	c3p0-config.xml：c3p0数据源配置文件
+	log4j.properties：log4j日志配置文件
+	shiro.ini：shiro权限控制器配置文件
+在/src/test/java下
+	cn.edu.nenu.clzc.service.test：存放service层的测试类
+
+后台包的创建并不是在我的这些基础上就不再区分了，而是应该在我的包的基础上，对应你们的每一个不同的模块，再来分出子包。
+对于不变的，很多地方都会用到的方法，字符串，数据等等就要想着给抽取出来。比如说抽取为常量，抽取为枚举，抽取出新的方法等等。
+在开发中需要你们去维护的文件除了mvc中的相关类就只有上面我详细介绍了用途的一些类，所以其他的类如果你觉得有必要区修改它，
+把你的想法说给我听我来改。
+
+
+在/src/main/webapp下
+这下面的主要是静态资源或者jsp页面
+	resources：存放前段静态资源
+	
+	WEB-INF/view：存放jsp视图和web.xml
+		common：存放公共的页面：比如抽取出来的页头或者页尾等等
+		各个模块的文件家：存放各个模块的jsp页面
+		404.jsp：存放返回404的jsp页面
+		500.jsp：返回500的jsp页面
+		login.jsp：登录页面
+		site-config.jsp：页面请求地址配置页面
+		unauthorized.jsp：授权失败页面
+
+
+		this.info=message;
+说明：平常你们自己做的测试项目都是将jsp放在/ 下面的，但是/ 下面的资源是可以直接在地址栏里面通过url访问到下载的是不安全的，
+相反WEB-INF下面的文件则是在WEB-INF外部不可以直接访问到的，所以将jsp页面放在WEB-INF下面，这样做以后我们需要先访问一个后台的Controller方法。
+然后转发到这个页面才行。以需要每一个页面都需要有一个跳转到这个页面的后台方法，但是jsp直接相互跳转是没有问题的。
+
+
+
+开发中的代码规范
+1.适当的注释：对方法的用途一定要进行注释，对于注释可以百度修改myeclipse的注释模板把大家的注释模板都统一。
+
+2.适当的空行与空格：添加适当的空行增加代码的可读性。对于代码排版myeclipse快捷键ctrl+shift+F，但是也不要乱用，
+因为如果你的某一句代码很长的话，他就会自动换行代码依然不好看
+
+3.方法的命名见名知意：这个特别是在controller层的时候，每一个controller方法在正常的请求成功以后可能会跳转到一个页面或者将请求转发到其他controller
+所以对于Controller方法的命名，如果是处理ajax请求的就以ajax开头；如果是正常操作以后转发到一个页面就以dispatch开头；如果是重定向就以redirect开头。
+
+4.Controller层类继承ControllerExpand，Service层类继承ServiceExpand，Dao层继承AbstractDao
+
+5.异常的抛出：
+	规定dao层类先登记日志再抛出Exception；
+	Service抛出ContextException（可将dao层跑出的Exception先登记到日志里面以后 再包装到ContextException中进行抛出）；
+	Controller层：抛出ServletException，IOException只是将异常登记到日志中，并且将异常自定义的异常信息传递到500页面上，而不抛出异常。
+	
+	
+	几个常用的异常类以及他们的抛出场景。
+		1.IllegalArgumentException：参数不正确。
+		2.IllegalStateException：错误的参数状态，或者返回状态。
+		3.NullPointerException：空指针异常
+		4.IllegalAccessException：没有权限不可使用
+		5.ClassCastException：转型失败异常
+		以上的只是我觉得你们在开发中会应该区创建和抛出的异常。其实常见的异常很多的，只是有些我们在开发中不需要去抛出。
+		在工具类封装中会遇到很多具体的异常需要具体的抛出。
+		另外异常信息应该定义到 每个枚举类中，不要将信息直接写在你抛出异常的地方。
+	
+6.日志的登记
+	开发中需要我们登记的日志级别一般就只有info和error两种。
+	info我的理解是一种标志信息，告诉别人我的程序执行到这一步了，而程序是没有错的。比如我们开启事务的时候就可以登记一下日志，
+	结束事务的时候也可以登记一下日志。
+	error就是错误信息，告诉别人我的这里出错了，要和你的异常处理同步登记，而且放在你的异常抛出语句之前。
+
+7.测试类：如果你的Service层代码和你的controller层代码是分开写的一定要记得写测试方法，
+不然写完了才发现你的Service是用不了的话就差不多白写了。
+
+8.代码的定期提交：记得在正常开发的时候每天更新一遍代码最少的，每天提交一次代码，每天桥底阿妈之前先更新一遍代码。
+不要写很多代码一次性提交那样如果你的代码冲突导致丢失不好找回，提交的时候记得协商注释，具体的svn怎么解决冲突可以看看上次我发在群里那篇博文。
+。很详细的！
+	

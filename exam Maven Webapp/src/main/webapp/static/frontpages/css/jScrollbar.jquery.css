@@ -1,0 +1,47 @@
+.clr {
+	clear:both;
+	height:0
+}
+
+.jScrollbar3 {
+	width:240px;
+	height:85px;
+	overflow:hidden;
+	position: absolute;
+	background-color:#d6d6d6;
+}
+	.jScrollbar3 .jScrollbar_mask {
+		width:237px;
+		position:relative;
+		top:0;
+		float:left
+	}
+		.jScrollbar3 .jScrollbar_mask p {
+			margin:0;
+			padding:0;
+			color:#242424;
+			font-size:12px;
+		}
+	.jScrollbar3 .jScrollbar_draggable {
+		float:left;
+		width:3px;
+		height:85px;
+		overflow:hidden;
+		background:none;
+		background-color:#D3CCB2;
+		position:relative
+	}
+	.jScrollbar3 .jScrollbar_draggable a.draggable {
+		position:relative;
+		background-color: navajowhite;
+		display:block;
+		height:44px;
+		width:3px;
+		margin-left:0;
+		cursor:s-resize
+	}
+input{
+	display: block;
+	width: 240px;
+	height: 20px;
+}
